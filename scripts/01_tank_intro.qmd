@@ -1,7 +1,7 @@
 ---
 title: "Session 1: Getting to Know Our Reef Tank"
 subtitle: "Stier Lab Coding Sessions"
-author: "Your Name"
+author: "Hunter Wohlford"
 format:
   html:
     toc: true
@@ -78,7 +78,7 @@ You can also open the whole table in a spreadsheet-style viewer by typing `View(
 
 How many readings are in this dataset? If the Apex records one reading every 10 minutes, roughly how many days does that cover?
 
-**Answer:**
+**Answer: There are 2123 readings which would equate to almost 15 days of coverage.**
 
 ## Part 3: Ask the data questions
 
@@ -101,18 +101,18 @@ max(tank$temperature)
 What was the average pH? The lowest? The highest? Fill in the blanks, then run the chunk.
 
 ```{r}
-mean(tank$____)
-min(tank$____)
-max(tank$____)
+mean(tank$ph)
+min(tank$ph)
+max(tank$ph)
 ```
 
-**Answer:**
+**Answer: The mean is 8.762153, the minimum is 8.63, and the maximum is 8.85**
 
 ### Question 3
 
 Reef tanks are usually kept between 76 and 80 degrees Fahrenheit. Did our tank ever leave that range?
 
-**Answer:**
+**Answer:The tank temperature remained between 76 and 80 degrees Fahrenheit**
 
 ## Part 4: Your first plot
 
@@ -140,7 +140,12 @@ ggplot(tank, aes(x = datetime, y = temperature)) +
 **Your turn:** copy the plot above into the chunk below and change it to show pH instead. Remember to update the y-axis label and title too!
 
 ```{r}
-
+ggplot(tank, aes(x = datetime, y = ph)) +
+  geom_line(color = "steelblue") +
+  labs(x = "Date",
+       y = "pH Level",
+       title = "Stier Lab tank pH Level") +
+  theme_minimal()
 ```
 
 ## Part 5: Tank detective
@@ -165,7 +170,7 @@ ggplot(tank, aes(x = datetime, y = return_pump_watts)) +
 
 What happened to the return pump? Roughly when did it stop and start again?
 
-**Answer:**
+**Answer:The return pump shut off or was not powered from around the 21st to the 22nd**
 
 ### Question 5
 
@@ -173,19 +178,21 @@ During the outage, the temperature reading slowly dropped. Then, within 10 minut
 
 *Hint: think about where the heater is and where the probe is.*
 
-**Answer:**
+**Answer:The temperature in the sump decreased due to warm water in the tank not flowing into it. However, the heater still was heating the water, thinking the water was cooler than it was, so when the pump started working again, the temperature jumped up really fast.**
 
 Now plot `heater_watts` over time. Does it support your explanation?
 
 ```{r}
-
+ggplot(tank, aes(x = datetime, y = heater_watts)) +
+  geom_line() +
+  theme_minimal()
 ```
 
 ### Question 6
 
 The Apex turns the heater on whenever the probe reads too cold. How often was the heater on during the outage compared to a normal day? What might that have done to the corals in the display tank?
 
-**Answer:**
+**Answer:The heater was on constantly during the period of the outage. This probably led to the coral in the display tank bleaching due to water temperatures that were too warm for the corals and its zooxanthellae.**
 
 ## Part 6: Day and night
 
@@ -201,12 +208,12 @@ ggplot(tank, aes(x = hour, y = light_watts)) +
 
 When do the lights turn on and off? When are they brightest?
 
-**Answer:**
+**Answer:The lights turn on at 7am and off between 6 or 7pm. They appear to be the brightest around 1pm.**
 
 Now make the same kind of plot for `orp` (oxidation reduction potential, a measure of how well the water can break down waste). Fill in the blank:
 
 ```{r}
-ggplot(tank, aes(x = hour, y = ____)) +
+ggplot(tank, aes(x = hour, y = orp)) +
   geom_point(alpha = 0.2) +
   theme_minimal()
 ```
@@ -215,20 +222,24 @@ ggplot(tank, aes(x = hour, y = ____)) +
 
 What happens to `orp` when the lights come on in the morning?
 
-**Answer:**
+**Answer: The orp decreases when the lights come on in the morning and then increases again when the lights turn off in the evening.**
 
 ## Challenges (if you finish early)
 
 **A.** Plot `alkalinity` over time. The Trident tester only measures it every 6 hours, which is why the line looks like stairs. What trend do you see?
 
 ```{r}
-
+ggplot(tank, aes(x = hour, y = alkalinity)) +
+  geom_line() +
+  theme_minimal()
 ```
 
 **B.** Plot `temperature` (x) against `salinity` (y) with `geom_point()`. Should water temperature change how salty the water is? What might be going on with the salinity probe?
 
 ```{r}
-
+ggplot(tank, aes(x = hour, y = alkalinity)) +
+  geom_point(alpha = 0.2) +
+  theme_minimal()
 ```
 
 **C.** Calculate the average temperature for each hour of the day:
