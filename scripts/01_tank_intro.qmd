@@ -229,7 +229,7 @@ What happens to `orp` when the lights come on in the morning?
 **A.** Plot `alkalinity` over time. The Trident tester only measures it every 6 hours, which is why the line looks like stairs. What trend do you see?
 
 ```{r}
-ggplot(tank, aes(x = hour, y = alkalinity)) +
+ggplot(tank, aes(x = datetime, y = alkalinity)) +
   geom_line() +
   theme_minimal()
 ```
@@ -237,7 +237,7 @@ ggplot(tank, aes(x = hour, y = alkalinity)) +
 **B.** Plot `temperature` (x) against `salinity` (y) with `geom_point()`. Should water temperature change how salty the water is? What might be going on with the salinity probe?
 
 ```{r}
-ggplot(tank, aes(x = hour, y = alkalinity)) +
+ggplot(tank, aes(x = temperature, y = salinity)) +
   geom_point(alpha = 0.2) +
   theme_minimal()
 ```
